@@ -3,6 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Animated, Easing } fro
 import React, { useEffect, useState, useRef } from 'react';
 import { API_ENDPOINT } from './src/constants';
 import { LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Product from './src/screens/Product';
+import HomeScreen from './src/screens/HomeScreen';
 
 export default function App() {
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -13,6 +17,8 @@ export default function App() {
   LogBox.ignoreLogs([
     "No native splash screen registered for given view controller. Call 'SplashScreen.show' for given view controller first.",
   ]);
+
+  const Stack = createNativeStackNavigator();
 
   useEffect(() => {
     setTimeout(() => {
@@ -59,28 +65,35 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      {isLoading && (
-        <Animated.View style={animatedStyle}>
-          <Image style={styles.spinner} source={require('./src/assets/spinner.png')} />
-        </Animated.View>
-      )}
-      {!isLoading &&
-        products.map((product) => (
-          <TouchableOpacity
-            key={product.id}
-            style={styles.product}
-            onPress={() => {
-              alert('You tapped the button!');
-            }}
-          >
-            <Text key={product.id}>{product.title}</Text>
-          </TouchableOpacity>
-        ))}
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Welcome' }} />
+        <Stack.Screen name="Product" component={Product} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+// <View style={styles.container}>
+//   {isLoading && (
+//     <Animated.View style={animatedStyle}>
+//       <Image style={styles.spinner} source={require('./src/assets/spinner.png')} />
+//     </Animated.View>
+//   )}
+//   {!isLoading &&
+//     products.map((product) => (
+//       <TouchableOpacity
+//         key={product.id}
+//         style={styles.product}
+//         onPress={() => {
+//           alert('You tapped the button!');
+//         }}
+//       >
+//         <Text key={product.id}>{product.title}</Text>
+//       </TouchableOpacity>
+//     ))}
+//   <StatusBar style="auto" />
+// </View>;
 
 const styles = StyleSheet.create({
   container: {
