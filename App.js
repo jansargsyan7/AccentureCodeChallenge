@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Image, Animated, Easing, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Product from './src/screens/Product';
 import HomeScreen from './src/screens/HomeScreen';
 import { StatusBar } from 'expo-status-bar';
+import { API_ENDPOINT } from './src/constants';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
