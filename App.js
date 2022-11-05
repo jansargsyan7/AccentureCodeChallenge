@@ -6,12 +6,14 @@ import Product from './src/screens/Product';
 import HomeScreen from './src/screens/HomeScreen';
 import { StatusBar } from 'expo-status-bar';
 import { API_ENDPOINT } from './src/constants';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
-    <>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Welcome' }} />
@@ -19,6 +21,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
-    </>
+    </Provider>
   );
 }

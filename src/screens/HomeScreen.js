@@ -1,13 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Animated, Easing } from 'react-native';
+import React, { useEffect } from 'react';
+import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { LogBox } from 'react-native';
 import { API_ENDPOINT } from '../constants';
+import Spinner from '../components/Spinner';
+import { useSelector, useDispatch } from 'react-redux';
+import { isLoadingToggle } from '../redux/utilsSlice';
+import { loadProducts } from '../redux/productsSlice';
 
 const HomeScreen = ({ navigation }) => {
-  const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  const isLoading = useSelector((state) => state.utils.isLoading);
+  const products = useSelector((state) => state.products);
 
-  const [isLoading, setLoading] = useState(true);
-  const [products, setProducts] = useState({});
+  const dispatch = useDispatch();
 
   LogBox.ignoreLogs([
     "No native splash screen registered for given view controller. Call 'SplashScreen.show' for given view controller first.",
@@ -20,52 +24,18 @@ const HomeScreen = ({ navigation }) => {
         .then((json) => {
           const productsRaw = json;
           productsRaw.sort((a, b) => (a.order > b.order ? 1 : -1));
-          setProducts(productsRaw);
+          dispatch(loadProducts(productsRaw));
         })
         .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-    }, 2000);
+        .finally(() => dispatch(isLoadingToggle()));
+    }, 3000);
   }, []);
-
-  useEffect(() => {
-    console.log(products[0]);
-  }, [products]);
-
-  useEffect(() => {
-    Animated.loop(
-      Animated.timing(rotateAnimation, {
-        toValue: 1,
-        duration: 1000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      })
-    ).start(() => {
-      rotateAnimation.setValue(0);
-    });
-  }, []);
-
-  const interpolateRotating = rotateAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
-
-  const animatedStyle = {
-    transform: [
-      {
-        rotate: interpolateRotating,
-      },
-    ],
-  };
 
   return (
     <View style={styles.container}>
-      {isLoading && (
-        <Animated.View style={animatedStyle}>
-          <Image style={styles.spinner} source={require('../assets/spinner.png')} />
-        </Animated.View>
-      )}
+      {isLoading && <Spinner isLoading={isLoading} />}
       {!isLoading &&
-        products.map((product) => (
+        products?.map((product) => (
           <TouchableOpacity
             key={product.id}
             style={styles.product}
@@ -77,10 +47,6 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
-
-// <TouchableOpacity onPress={() => navigation.navigate('Product', { id: '111' })}>
-//   <Text>Go to profile</Text>
-// </TouchableOpacity>
 
 const styles = StyleSheet.create({
   container: {
@@ -94,10 +60,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     paddingHorizontal: 30,
-  },
-  spinner: {
-    width: 50,
-    height: 50,
   },
 });
 
