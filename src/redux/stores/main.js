@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import isLoadingReducer from './utilsSlice';
-import productsReducer from './productsSlice';
+import isLoadingReducer from '../slices/utilsSlice';
+import productsReducer from '../slices/productsSlice';
 
 export const store = configureStore({
   reducer: {

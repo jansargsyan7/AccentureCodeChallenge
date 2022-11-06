@@ -35,7 +35,7 @@ const Spinner = ({ isLoading }) => {
       {isLoading && (
         <View style={styles} alignItems="center" justifyContent="center">
           <Animated.View style={animatedStyle}>
-            <Image style={styles.spinner} source={require('../assets/spinner.png')} />
+            <Image style={styles.spinner} source={require('../../assets/spinner.png')} />
           </Animated.View>
         </View>
       )}

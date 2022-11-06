@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { LogBox } from 'react-native';
-import { API_ENDPOINT } from '../constants';
+import { StyleSheet, View } from 'react-native';
 import Spinner from '../components/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
-import { isLoadingToggle } from '../redux/utilsSlice';
-import { loadProducts } from '../redux/productsSlice';
+import { isLoadingToggle } from '../redux/slices/utilsSlice';
+import { loadProducts } from '../redux/slices/productsSlice';
+import ProductEntity from '../components/ProductEntity';
+
+import { PRODUCTS_LIST_ENDPOINT } from '../constants';
 
 const HomeScreen = ({ navigation }) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
@@ -13,13 +14,9 @@ const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  LogBox.ignoreLogs([
-    "No native splash screen registered for given view controller. Call 'SplashScreen.show' for given view controller first.",
-  ]);
-
   useEffect(() => {
     setTimeout(() => {
-      fetch(API_ENDPOINT)
+      fetch(PRODUCTS_LIST_ENDPOINT)
         .then((response) => response.json())
         .then((json) => {
           const productsRaw = json;
@@ -28,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
         })
         .catch((error) => console.error(error))
         .finally(() => dispatch(isLoadingToggle()));
-    }, 3000);
+    }, 1000);
   }, []);
 
   return (
@@ -36,13 +33,7 @@ const HomeScreen = ({ navigation }) => {
       {isLoading && <Spinner isLoading={isLoading} />}
       {!isLoading &&
         products?.map((product) => (
-          <TouchableOpacity
-            key={product.id}
-            style={styles.product}
-            onPress={() => navigation.navigate('Product', { id: product.id })}
-          >
-            <Text key={product.id}>{product.title}</Text>
-          </TouchableOpacity>
+          <ProductEntity navigation={navigation} key={product.id} product={product} />
         ))}
     </View>
   );
