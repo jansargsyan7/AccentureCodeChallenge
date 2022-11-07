@@ -3,7 +3,10 @@ import { useDispatch } from 'react-redux';
 import { setIsLoading } from '../redux/slices/utilsSlice';
 import axios from 'axios';
 
-function useFetch(url, method = 'GET', body) {
+/*
+  Custom hook for performing GET API request
+*/
+const useFetch = (url, method = 'GET', body) => {
   const [apiData, setApiData] = useState({});
   const [serverError, setServerError] = useState(null);
   const dispatch = useDispatch();
@@ -30,5 +33,5 @@ function useFetch(url, method = 'GET', body) {
   }, [url, method, body]);
 
   return { apiData, serverError };
-}
+};
 export default useFetch;
