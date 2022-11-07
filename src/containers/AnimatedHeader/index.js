@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { Animated, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const HEADER_HEIGHT = 200;

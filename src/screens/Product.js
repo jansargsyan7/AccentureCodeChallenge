@@ -1,18 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Animated,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import { isLoadingToggle } from '../redux/slices/utilsSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef } from 'react';
+import { StyleSheet, View, Text, ScrollView, Animated, Image } from 'react-native';
+import { useSelector } from 'react-redux';
 import Spinner from '../components/Spinner';
-import Content from '../containers/Content';
-import Header from '../containers/Header';
 import AnimatedHeader from '../containers/AnimatedHeader';
 
 import { PRODUCT_DETAILS_ENDPOINT } from '../constants';
@@ -21,9 +10,6 @@ import useFetch from '../hooks/useFetch';
 
 const Product = ({ navigation, route }) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
-  const products = useSelector((state) => state.products);
-
-  const dispatch = useDispatch();
 
   const { apiData: product, error } = useFetch(PRODUCT_DETAILS_ENDPOINT + route.params?.id);
   const offset = useRef(new Animated.Value(0)).current;

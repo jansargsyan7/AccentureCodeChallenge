@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Spinner from '../components/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
-import { isLoadingToggle } from '../redux/slices/utilsSlice';
 import { loadProducts } from '../redux/slices/productsSlice';
-import ProductCard from '../components/ProductCard';
 import Content from '../containers/Content';
 import Header from '../containers/Header';
 import ProductGrid from '../containers/ProductGrid';
@@ -27,7 +25,6 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(isLoading);
     if (apiData) {
       dispatch(loadProducts(apiData));
     } else if (error) {
@@ -55,8 +52,6 @@ const HomeScreen = ({ navigation }) => {
         {!isLoading && !gridSelector && (
           <HorizontalCarousel navigation={navigation} products={products} />
         )}
-
-        <HorizontalCarousel />
       </Content>
     </View>
   );
@@ -91,6 +86,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 20,
+  },
+  content: {
+    marginTop: 30,
   },
 });
 

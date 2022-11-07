@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, Animated, Easing, View } from 'react-native';
+import { StyleSheet, Animated, Easing, View } from 'react-native';
 
 const Spinner = ({ isLoading }) => {
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));

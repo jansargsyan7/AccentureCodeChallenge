@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel from 'react-native-snap-carousel';
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from './CarouselItem';
 
 const _renderItem = ({ item, index }) => {
@@ -28,7 +28,7 @@ const HorizontalCarousel = ({ products }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 20,
   },
 });
 export default HorizontalCarousel;

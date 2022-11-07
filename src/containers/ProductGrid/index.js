@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, ScrollView, Dimensions } from 'react-native';
 import ProductCard from '../../components/ProductCard';
 
 const ProductGrid = ({ products, navigation }) => {
@@ -25,6 +25,7 @@ const ProductGrid = ({ products, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
+    marginTop: 10,
   },
 });
 export default ProductGrid;
