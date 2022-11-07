@@ -25,7 +25,8 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (apiData) {
+    if (apiData.length > 0) {
+      apiData.sort((a, b) => (a.order > b.order ? 1 : -1));
       dispatch(loadProducts(apiData));
     } else if (error) {
       console.error(error);
