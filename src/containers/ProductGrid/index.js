@@ -15,8 +15,8 @@ const ProductGrid = ({ products, navigation }) => {
         alignItems: 'flex-start',
       }}
     >
-      {products?.map((product) => (
-        <ProductCard navigation={navigation} key={product.id} product={product} />
+      {products?.map((product, index) => (
+        <ProductCard index={index} navigation={navigation} key={product.id} product={product} />
       ))}
     </ScrollView>
   );

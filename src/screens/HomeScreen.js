@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
   const products = useSelector((state) => state.products);
 
-  const [gridSelector, setGridSelector] = useState(true);
+  const [gridSelector, setGridSelector] = useState(false);
   const toggleSwitch = () => setGridSelector((previousState) => !previousState);
 
   const { apiData, error } = useFetch(PRODUCTS_LIST_ENDPOINT);

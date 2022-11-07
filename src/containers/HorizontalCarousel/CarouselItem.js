@@ -1,23 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 
-import { useNavigation } from '@react-navigation/native';
-
 const CarouselCardItem = ({ item, index }) => {
+  const [fadeAnim] = useState(new Animated.Value(0));
   const navigation = useNavigation();
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      delay: index * 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Product', { productTitle: item.title, id: item.id })}
-      style={styles.container}
-      key={index}
+    <Animated.View
+      style={[
+        styles.container,
+        {
+          opacity: fadeAnim,
+        },
+      ]}
     >
-      <Image source={{ uri: item.image1 ? item.image1 : item.image2 }} style={styles.image} />
-      <Text style={styles.header}>{item.title}</Text>
-      <Text style={styles.body}>{item.binomialName}</Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Product', { productTitle: item.title, id: item.id })}
+        key={index}
+      >
+        <Image source={{ uri: item.image1 ? item.image1 : item.image2 }} style={styles.image} />
+        <Text style={styles.header}>{item.title}</Text>
+        <Text style={styles.body}>{item.binomialName}</Text>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 

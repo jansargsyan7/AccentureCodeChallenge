@@ -1,9 +1,35 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, Image, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  Animated,
+} from 'react-native';
 
-const ProductCard = ({ navigation, product }) => {
+const ProductCard = ({ navigation, product, index }) => {
+  const [fadeAnim] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      delay: index * 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[
+        styles.container,
+        {
+          opacity: fadeAnim,
+        },
+      ]}
+    >
       <TouchableOpacity
         key={product.id}
         onPress={() =>
@@ -17,7 +43,7 @@ const ProductCard = ({ navigation, product }) => {
         />
         <Text style={styles.title}>{product.title}</Text>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };
 
