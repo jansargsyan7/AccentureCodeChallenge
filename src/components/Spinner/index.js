@@ -33,10 +33,11 @@ const Spinner = ({ isLoading }) => {
   return (
     <>
       {isLoading && (
-        <View style={styles} alignItems="center" justifyContent="center">
-          <Animated.View style={animatedStyle}>
-            <Image style={styles.spinner} source={require('../../assets/spinner.png')} />
-          </Animated.View>
+        <View style={styles.container}>
+          <Animated.Image
+            style={[animatedStyle, styles.spinner]}
+            source={require('../../assets/spinner.png')}
+          />
         </View>
       )}
     </>
@@ -47,6 +48,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   spinner: {
     width: 50,

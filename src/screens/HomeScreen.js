@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Spinner from '../components/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { isLoadingToggle } from '../redux/slices/utilsSlice';
 import { loadProducts } from '../redux/slices/productsSlice';
 import ProductEntity from '../components/ProductEntity';
+import Content from '../containers/Content';
+import Header from '../containers/Header';
 
 import { PRODUCTS_LIST_ENDPOINT } from '../constants';
 
@@ -30,21 +32,35 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {isLoading && <Spinner isLoading={isLoading} />}
-      {!isLoading &&
-        products?.map((product) => (
-          <ProductEntity navigation={navigation} key={product.id} product={product} />
-        ))}
+      <Header>Seed Shop 🌱</Header>
+      <Content>
+        {isLoading && <Spinner isLoading={isLoading} />}
+        {!isLoading &&
+          products?.map((product) => (
+            <ProductEntity navigation={navigation} key={product.id} product={product} />
+          ))}
+      </Content>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    width: '100%',
+  },
+  header: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'green',
+    fontSize: 30,
+  },
+  content: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: 'yellow',
+    justifyContent: 'flex-start',
   },
   product: {
     backgroundColor: '#c9c9c9',

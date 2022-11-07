@@ -5,7 +5,9 @@ const ProductEntity = ({ navigation, product }) => {
   return (
     <TouchableOpacity
       key={product.id}
-      onPress={() => navigation.navigate('Product', { id: product.id })}
+      onPress={() =>
+        navigation.navigate('Product', { productTitle: product.title, id: product.id })
+      }
       style={styles.container}
     >
       <Text>{product.title}</Text>

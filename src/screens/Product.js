@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Animated,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import { isLoadingToggle } from '../redux/slices/utilsSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../components/Spinner';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Content from '../containers/Content';
+import Header from '../containers/Header';
+import AnimatedHeader from '../containers/AnimatedHeader';
 
 import { PRODUCT_DETAILS_ENDPOINT } from '../constants';
+import PriceBtn from '../components/PriceBtn';
 
 const Product = ({ navigation, route }) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
@@ -13,6 +24,8 @@ const Product = ({ navigation, route }) => {
 
   const dispatch = useDispatch();
   const [product, setProduct] = useState({});
+
+  const offset = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     dispatch(isLoadingToggle());
@@ -22,7 +35,6 @@ const Product = ({ navigation, route }) => {
         .then((response) => response.json())
         .then((json) => {
           setProduct(json);
-          navigation.setOptions({ title: json.title });
         })
         .catch((error) => console.error(error))
         .finally(() => dispatch(isLoadingToggle()));
@@ -30,20 +42,84 @@ const Product = ({ navigation, route }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {isLoading && <Spinner isLoading={isLoading} />}
-      {!isLoading && <Text>{product.title}</Text>}
+    <View style={styles(product).container}>
+      <AnimatedHeader
+        animatedValue={offset}
+        back
+        navigation={navigation}
+        bgImage={product.image1 ? product.image1 : product.image2}
+      >
+        {route.params?.productTitle}
+      </AnimatedHeader>
+
+      <ScrollView
+        style={{ flex: 1, backgroundColor: product.backgroundColor }}
+        contentContainerStyle={{
+          alignItems: 'center',
+          paddingTop: 220,
+          paddingHorizontal: 20,
+        }}
+        showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: offset } } }], {
+          useNativeDriver: false,
+        })}
+      >
+        {isLoading && <Spinner isLoading={isLoading} />}
+        {!isLoading && (
+          <View>
+            <View style={styles(product).titleWrapper}>
+              <View>
+                <Text style={styles(product).productTitle}>{product.title}</Text>
+              </View>
+              <View>
+                {product.ukOnly && (
+                  <Image
+                    style={styles(product).ukFlag}
+                    source={require('../assets/uk.png')}
+                    alt={product.title}
+                  />
+                )}
+              </View>
+            </View>
+            <Text style={styles(product).description}>{product.description}</Text>
+            <PriceBtn product={product} price={product.price} />
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = (product) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: product.backgroundColor,
+      flex: 1,
+      width: '100%',
+    },
+    titleWrapper: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      flexWrap: 'nowrap',
+      alignItems: 'center',
+    },
+    productTitle: {
+      fontFamily: 'Roboto-Regular',
+      fontSize: 36,
+      color: product.textColor,
+    },
+    description: {
+      marginTop: 10,
+      fontSize: 24,
+      color: product.textColor,
+    },
+    ukFlag: {
+      width: 35,
+      height: 20,
+      borderRadius: 5,
+    },
+  });
 
 export default Product;
