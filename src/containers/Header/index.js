@@ -35,7 +35,6 @@ const Header = ({ children, navigation, back, next }) => {
 
 const styles = StyleSheet.create({
   header: {
-    display: 'flex',
     width: '100%',
     height: 50,
     alignItems: 'center',
@@ -46,7 +45,6 @@ const styles = StyleSheet.create({
   back: {
     backgroundColor: 'none',
     color: 'black',
-    display: 'flex',
     flexDirection: 'row',
     padding: 10,
   },

@@ -99,7 +99,6 @@ const styles = (product) =>
       width: '100%',
     },
     titleWrapper: {
-      display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
       flexWrap: 'nowrap',
@@ -107,12 +106,12 @@ const styles = (product) =>
     },
     productTitle: {
       fontFamily: 'Roboto-Regular',
-      fontSize: 36,
+      fontSize: 40,
       color: product.textColor,
     },
     description: {
       marginTop: 10,
-      fontSize: 24,
+      fontSize: 28,
       color: product.textColor,
     },
     ukFlag: {
