@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from './CarouselItem';
+import PropTypes from 'prop-types';
 
 const _renderItem = ({ item, index }) => {
   return <CarouselCardItem item={item} index={index} />;
@@ -31,4 +32,23 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+HorizontalCarousel.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      binomialName: PropTypes.string,
+      description: PropTypes.string,
+      ukOnly: PropTypes.bool,
+      image1: PropTypes.string,
+      image2: PropTypes.string,
+      accentColor: PropTypes.string,
+      backgroundColor: PropTypes.string,
+      textColor: PropTypes.string,
+      order: PropTypes.string,
+    })
+  ),
+};
+
 export default HorizontalCarousel;

@@ -7,6 +7,7 @@ import AnimatedHeader from '../containers/AnimatedHeader';
 import { PRODUCT_DETAILS_ENDPOINT } from '../constants';
 import PriceBtn from '../components/PriceBtn';
 import useFetch from '../hooks/useFetch';
+import PropTypes from 'prop-types';
 
 const Product = ({ navigation, route }) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
@@ -93,5 +94,34 @@ const styles = (product) =>
       borderRadius: 5,
     },
   });
+
+Product.propTypes = {
+  navigation: PropTypes.shape({
+    addListener: PropTypes.func.isRequired,
+    canGoBack: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    getId: PropTypes.func.isRequired,
+    getParent: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
+    isFocused: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
+    pop: PropTypes.func.isRequired,
+    popToTop: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
+    removeListener: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
+    setOptions: PropTypes.func.isRequired,
+    setParams: PropTypes.func.isRequired,
+  }).isRequired,
+  route: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    params: PropTypes.shape({
+      productTitle: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default Product;

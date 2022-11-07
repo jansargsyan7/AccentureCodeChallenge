@@ -7,7 +7,6 @@ function useFetch(url, method = 'GET', body) {
   const [apiData, setApiData] = useState({});
   const [serverError, setServerError] = useState(null);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(setIsLoading(true));
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Animated, Easing, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 const Spinner = ({ isLoading }) => {
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -57,5 +58,9 @@ const styles = StyleSheet.create({
     height: 50,
   },
 });
+
+Spinner.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
 
 export default Spinner;

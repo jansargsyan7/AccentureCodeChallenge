@@ -9,6 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -85,5 +86,23 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
 });
+
+CarouselCardItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    binomialName: PropTypes.string,
+    description: PropTypes.string,
+    ukOnly: PropTypes.bool,
+    image1: PropTypes.string,
+    image2: PropTypes.string,
+    accentColor: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    textColor: PropTypes.string,
+    order: PropTypes.string,
+    price: PropTypes.string,
+  }),
+};
 
 export default CarouselCardItem;

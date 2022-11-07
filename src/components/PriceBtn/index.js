@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 const PriceBtn = ({ product, price }) => {
   const priceInt = parseInt(price);
@@ -59,5 +60,23 @@ const styles = (product) =>
       fontWeight: 'bold',
     },
   });
+
+PriceBtn.propTypes = {
+  price: PropTypes.string,
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    binomialName: PropTypes.string,
+    description: PropTypes.string,
+    ukOnly: PropTypes.bool,
+    image1: PropTypes.string,
+    image2: PropTypes.string,
+    accentColor: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    textColor: PropTypes.string,
+    order: PropTypes.string,
+    price: PropTypes.string,
+  }),
+};
 
 export default PriceBtn;

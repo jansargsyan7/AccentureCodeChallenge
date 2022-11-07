@@ -1,6 +1,7 @@
 import React from 'react';
 import { Animated, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import PropTypes from 'prop-types';
 
 const HEADER_HEIGHT = 200;
 
@@ -53,4 +54,26 @@ const styles = StyleSheet.create({
     border: '1px solid black',
   },
 });
+
+AnimatedHeader.propTypes = {
+  bgImage: PropTypes.string,
+  navigation: PropTypes.shape({
+    addListener: PropTypes.func.isRequired,
+    canGoBack: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    getId: PropTypes.func.isRequired,
+    getParent: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
+    isFocused: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
+    pop: PropTypes.func.isRequired,
+    popToTop: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
+    removeListener: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
+    setOptions: PropTypes.func.isRequired,
+    setParams: PropTypes.func.isRequired,
+  }),
+};
 export default AnimatedHeader;
