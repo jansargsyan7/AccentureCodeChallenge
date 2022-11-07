@@ -8,6 +8,7 @@ import ProductCard from '../components/ProductCard';
 import Content from '../containers/Content';
 import Header from '../containers/Header';
 import ProductGrid from '../containers/ProductGrid';
+import useFetch from '../hooks/useFetch';
 
 import HorizontalCarousel from '../containers/HorizontalCarousel';
 
@@ -21,21 +22,18 @@ const HomeScreen = ({ navigation }) => {
   const [gridSelector, setGridSelector] = useState(true);
   const toggleSwitch = () => setGridSelector((previousState) => !previousState);
 
+  const { apiData, error } = useFetch(PRODUCTS_LIST_ENDPOINT);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      fetch(PRODUCTS_LIST_ENDPOINT)
-        .then((response) => response.json())
-        .then((json) => {
-          const productsRaw = json;
-          productsRaw.sort((a, b) => (a.order > b.order ? 1 : -1));
-          dispatch(loadProducts(productsRaw));
-        })
-        .catch((error) => console.error(error))
-        .finally(() => dispatch(isLoadingToggle()));
-    }, 1000);
-  }, []);
+    console.log(isLoading);
+    if (apiData) {
+      dispatch(loadProducts(apiData));
+    } else if (error) {
+      console.error(error);
+    }
+  }, [apiData, error]);
 
   return (
     <View style={styles.container}>

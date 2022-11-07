@@ -17,29 +17,16 @@ import AnimatedHeader from '../containers/AnimatedHeader';
 
 import { PRODUCT_DETAILS_ENDPOINT } from '../constants';
 import PriceBtn from '../components/PriceBtn';
+import useFetch from '../hooks/useFetch';
 
 const Product = ({ navigation, route }) => {
   const isLoading = useSelector((state) => state.utils.isLoading);
   const products = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
-  const [product, setProduct] = useState({});
 
+  const { apiData: product, error } = useFetch(PRODUCT_DETAILS_ENDPOINT + route.params?.id);
   const offset = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    dispatch(isLoadingToggle());
-
-    setTimeout(() => {
-      fetch(PRODUCT_DETAILS_ENDPOINT + route.params?.id)
-        .then((response) => response.json())
-        .then((json) => {
-          setProduct(json);
-        })
-        .catch((error) => console.error(error))
-        .finally(() => dispatch(isLoadingToggle()));
-    }, 100);
-  }, []);
 
   return (
     <View style={styles(product).container}>

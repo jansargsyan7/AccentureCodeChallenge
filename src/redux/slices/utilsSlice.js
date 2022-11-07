@@ -6,11 +6,11 @@ const utilSlice = createSlice({
     isLoading: true,
   },
   reducers: {
-    isLoadingToggle(state, action) {
-      state.isLoading = !state.isLoading;
+    setIsLoading(state, action) {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const { isLoadingToggle } = utilSlice.actions;
+export const { setIsLoading } = utilSlice.actions;
 export default utilSlice.reducer;
