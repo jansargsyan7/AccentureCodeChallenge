@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Header = ({ children, navigation, back, next }) => {
   return (
     <View style={styles.header}>
-      <View style={styles.leftSide}>
+      <View style={styles.leftSide} testID={'backView'}>
         {back && (
           <TouchableOpacity
             onPress={() => {

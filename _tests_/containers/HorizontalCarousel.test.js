@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 afterEach(() => cleanup());
 
-test('render horizontal carousel without issues', async () => {
+test('render horizontal carousel with mock data without issues', async () => {
   const Stack = createNativeStackNavigator();
 
   const productsMock = [
