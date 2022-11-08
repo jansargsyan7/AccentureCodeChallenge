@@ -3,7 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 const Content = ({ children }) => {
-  return <View style={styles.content}>{children}</View>;
+  return (
+    <View accessibilityLabel="Content" style={styles.content}>
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

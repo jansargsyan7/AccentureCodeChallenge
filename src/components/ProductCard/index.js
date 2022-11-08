@@ -24,6 +24,7 @@ const ProductCard = ({ navigation, product, index }) => {
 
   return (
     <Animated.View
+      accessible
       style={[
         styles.container,
         {
@@ -32,6 +33,7 @@ const ProductCard = ({ navigation, product, index }) => {
       ]}
     >
       <TouchableOpacity
+        accessibilityLabel={product.title}
         key={product.id}
         onPress={() =>
           navigation.navigate('Product', { productTitle: product.title, id: product.id })

@@ -41,10 +41,12 @@ const Product = ({ navigation, route }) => {
       >
         {isLoading && <Spinner isLoading={isLoading} />}
         {!isLoading && (
-          <View>
+          <View accessibilityLabel="Product">
             <View style={styles(product).titleWrapper}>
               <View>
-                <Text style={styles(product).productTitle}>{product.title}</Text>
+                <Text accessibilityLabel="Product title" style={styles(product).productTitle}>
+                  {product.title}
+                </Text>
               </View>
               <View>
                 {product.ukOnly && (
@@ -56,7 +58,9 @@ const Product = ({ navigation, route }) => {
                 )}
               </View>
             </View>
-            <Text style={styles(product).description}>{product.description}</Text>
+            <Text accessibilityLabel="Product description" style={styles(product).description}>
+              {product.description}
+            </Text>
             <PriceBtn product={product} price={product.price} />
           </View>
         )}

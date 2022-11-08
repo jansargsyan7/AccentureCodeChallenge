@@ -8,6 +8,7 @@ const PriceBtn = ({ product, price }) => {
     <>
       {priceInt > 0 && (
         <TouchableOpacity
+          accessibilityLabel="Purchase Product"
           style={styles(product).price}
           onPress={() => {
             alert('Purchased');
@@ -17,7 +18,7 @@ const PriceBtn = ({ product, price }) => {
         </TouchableOpacity>
       )}
       {(priceInt == 0 || price == undefined) && (
-        <View style={styles(product).priceUnavailable}>
+        <View style={styles(product).priceUnavailable} accessibilityLabel="Product Unavailable">
           <Text style={styles(product).priceTextUnavailable}>UNAVAILABLE</Text>
         </View>
       )}

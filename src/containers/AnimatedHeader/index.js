@@ -17,6 +17,7 @@ const AnimatedHeader = ({ animatedValue, bgImage, navigation }) => {
   return (
     <>
       <TouchableOpacity
+        accessibilityLabel="Go Back"
         onPress={() => {
           navigation.goBack();
         }}

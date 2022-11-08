@@ -34,7 +34,7 @@ const Spinner = ({ isLoading }) => {
   return (
     <>
       {isLoading && (
-        <View style={styles.container}>
+        <View style={styles.container} accessibilityLabel="Loading.. Please wait">
           <Animated.Image
             style={[animatedStyle, styles.spinner]}
             source={require('../../assets/spinner.png')}

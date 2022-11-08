@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 const Header = ({ children, navigation, back, next }) => {
   return (
-    <View style={styles.header}>
+    <View style={styles.header} accessibilityLabel="Header">
       <View style={styles.leftSide} testID={'backView'}>
         {back && (
           <TouchableOpacity
+            accessibilityLabel="Go Back"
             onPress={() => {
               navigation.goBack();
             }}
@@ -21,6 +22,7 @@ const Header = ({ children, navigation, back, next }) => {
       <View style={styles.rightSide}>
         {next && (
           <TouchableOpacity
+            accessibilityLabel="Go to Next page"
             onPress={() => {
               navigation.goBack();
             }}

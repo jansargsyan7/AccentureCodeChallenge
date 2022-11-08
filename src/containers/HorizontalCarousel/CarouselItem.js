@@ -35,8 +35,10 @@ const CarouselCardItem = ({ item, index }) => {
           opacity: fadeAnim,
         },
       ]}
+      accessible
     >
       <TouchableOpacity
+        accessibilityLabel={item.title}
         onPress={() => navigation.navigate('Product', { productTitle: item.title, id: item.id })}
         key={index}
       >

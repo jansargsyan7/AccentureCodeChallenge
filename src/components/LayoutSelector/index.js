@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const LayoutSelector = ({ isEnabled, toggleSwitch }) => {
   return (
-    <View>
+    <View accessibilityLabel="Select layout">
       <Switch
         trackColor={{ false: '#767577', true: '#32a852' }}
         thumbColor="#f4f3f4"
